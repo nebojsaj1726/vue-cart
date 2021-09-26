@@ -1,10 +1,22 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link :class="{ active: $route.name === 'Home' }" to="/"
+      >Home</router-link
+    >
+    <router-link :class="{ active: $route.name === 'Cart' }" to="/cart"
+      >Cart</router-link
+    >
   </div>
-  <router-view/>
+  <router-view />
 </template>
+
+<script>
+export default {
+  mounted() {
+    this.$store.commit("updateCartFromLocalStorage");
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
@@ -15,16 +27,37 @@
   color: #2c3e50;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 #nav {
-  padding: 30px;
+  padding: 10px;
+  width: 100%;
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: darkgray;
+    text-decoration: none;
+    margin: 0 5px;
 
-    &.router-link-exact-active {
-      color: #42b983;
+    &.active {
+      color: #2c3e50;
     }
   }
+}
+
+.text-center {
+  text-align: center;
+}
+
+.button {
+  padding: 10px;
+  background-color: green;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
 }
 </style>
